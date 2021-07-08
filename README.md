@@ -58,5 +58,21 @@ mockstream | raw stream over ring buffer (no network)
 
 ### Libraries
 
- - QUIC https://github.com/lucas-clemente/quic-go
- - KCP https://github.com/xtaci/kcp-go
+- QUIC https://github.com/lucas-clemente/quic-go
+- KCP https://github.com/xtaci/kcp-go
+
+### Results (on my laptop)
+
+Results vary with each run, but stay approximately the same. Your mileage may
+vary.
+
+Test             | ~ Time            | ~ Speed
+-----------------|-------------------|---------------
+TCP              | ~ 2.6522s         | ~ 772 MiB/s
+TLS+TCP          | ~ 3.3561s         | ~ 610 MiB/s
+QUIC             | ~ 7.9078s         | ~ 259 MiB/s
+KCP              | ~ timeout         | ~ 4 MiB/s
+in memory        | ~ 847ms           | ~ 2.4 GiB/s
+TLS in memory    | ~ 1.4193s         | ~ 1.4 GiB/s
+QUIC in memory   | ~ 6.1452s         | ~ 333 MiB/s
+KCP in memory    | ~ timeout         | ~ 4 MiB/s
