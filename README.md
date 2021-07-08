@@ -45,10 +45,18 @@ go run ./cmd/send -mode mockquic -file <PathToYourBigFile>
 
 Available sending modes are
 
-Name      | Description
-----------|-------------------------------------------------
-tcp       | TCP
-tls       | TLS over TCP
-quic      | QUIC over UDP
-mocktls   | TLS over ring buffer (no network)
-mockquic  | QUIC over ring buffer (no network)
+Name       | Description
+-----------|-------------------------------------------------
+tcp        | TCP
+tls        | TLS over TCP
+quic       | QUIC over UDP
+kcp        | KCP over UDP
+mocktls    | TLS over ring buffer (no network)
+mockquic   | QUIC over ring buffer (no network)
+mockkcp    | KCP over ring buffer (no network)
+mockstream | raw stream over ring buffer (no network)
+
+### Libraries
+
+ - QUIC https://github.com/lucas-clemente/quic-go
+ - KCP https://github.com/xtaci/kcp-go
