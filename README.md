@@ -51,10 +51,18 @@ tcp        | TCP
 tls        | TLS over TCP
 quic       | QUIC over UDP
 kcp        | KCP over UDP
+udptcp     | TCP (user mode) over UDP*
 mocktls    | TLS over ring buffer (no network)
 mockquic   | QUIC over ring buffer (no network)
 mockkcp    | KCP over ring buffer (no network)
 mockstream | raw stream over ring buffer (no network)
+
+* *Note that the TCP over UDP mode has not been optimised - Actually its running
+  a full user mode network stack (not just TCP), so its also passing IP headers
+  and doing a lot of extra work that isn't strictly necessary for running just
+  one TCP session over a UDP socket. However, that was the easiest way to
+  implement it quickly. There's plenty of potential for improving the
+  performance of this test.*
 
 ### Libraries
 
@@ -66,13 +74,15 @@ mockstream | raw stream over ring buffer (no network)
 Results vary with each run, but stay approximately the same. Your mileage may
 vary.
 
-Test             | ~ Time            | ~ Speed
------------------|-------------------|---------------
-TCP              | ~ 2.6522s         | ~ 772 MiB/s
-TLS+TCP          | ~ 3.3561s         | ~ 610 MiB/s
-QUIC             | ~ 7.9078s         | ~ 259 MiB/s
-KCP              | ~ timeout         | ~ 4 MiB/s
-in memory        | ~ 847ms           | ~ 2.4 GiB/s
-TLS in memory    | ~ 1.4193s         | ~ 1.4 GiB/s
-QUIC in memory   | ~ 6.1452s         | ~ 333 MiB/s
-KCP in memory    | ~ timeout         | ~ 4 MiB/s
+Test              | ~ Time            | ~ Speed
+------------------|-------------------|---------------
+TCP               | ~ 2.6522s         | ~ 772 MiB/s
+TLS+TCP           | ~ 3.3561s         | ~ 610 MiB/s
+QUIC              | ~ 7.9078s         | ~ 259 MiB/s
+KCP               | ~ timeout         | ~ 4 MiB/s
+UDPTCP (1500 MTU) | ~ 9.4912s         | ~ 216 MiB/s
+UDPTCP (65k MTU)  | ~ 4.9213s         | ~ 416 MiB/s
+in memory         | ~ 847ms           | ~ 2.4 GiB/s
+TLS in memory     | ~ 1.4193s         | ~ 1.4 GiB/s
+QUIC in memory    | ~ 6.1452s         | ~ 333 MiB/s
+KCP in memory     | ~ timeout         | ~ 4 MiB/s

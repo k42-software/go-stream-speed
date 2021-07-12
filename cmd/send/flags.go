@@ -14,16 +14,17 @@ import (
 type testType string
 
 const (
-	testTCP         testType = "tcp"
-	testMockTCP              = "mocktcp" // Not implemented here
-	testKCP                  = "kcp"
-	testMockKCP              = "mockkcp"
-	testTLS                  = "tls"
-	testMockTLS              = "mocktls"
-	testQUIC                 = "quic"
-	testMockQUIC             = "mockquic"
-	testMockStream           = "mockstream"
-	testMockPackets          = "mockpackets"
+	testTCP        testType = "tcp"
+	testMockTCP             = "mocktcp" // Not implemented here
+	testKCP                 = "kcp"
+	testMockKCP             = "mockkcp"
+	testTLS                 = "tls"
+	testMockTLS             = "mocktls"
+	testQUIC                = "quic"
+	testMockQUIC            = "mockquic"
+	testMockStream          = "mockstream"
+
+	testUDPTCP = "udptcp"
 )
 
 const defaultTestFile = "bigfile.data" // "data/BrianTestVideo3.mp4"
@@ -79,6 +80,9 @@ func processCliFlags() (dialer testDialer, shutdown context.CancelFunc) {
 
 	case testMockStream:
 		dialer = dialMockStream
+
+	case testUDPTCP:
+		dialer = dialUDPTCP
 
 	default:
 		log.Printf("[ERROR] Unknown mode: %q", *modeStr)

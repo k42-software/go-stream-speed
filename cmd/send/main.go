@@ -11,6 +11,8 @@ const echoMode = false
 
 const serverHost = "127.0.0.1"
 
+const udpTcpLocalPort = "7932"
+const udpTcpRemotePort = "7931"
 const kcpPort = "7951"
 const tcpPort = "7961"
 const quicPort = "7971"
